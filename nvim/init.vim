@@ -2,6 +2,7 @@ call plug#begin('~/.config/nvim/plugins')
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "Themes
 Plug 'cocopon/iceberg.vim'
 Plug 'Zabanaa/neuromancer.vim'
@@ -11,15 +12,20 @@ Plug 'morhetz/gruvbox'
 Plug 'Rigellute/shades-of-purple.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'voldikss/vim-floaterm'
-Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim'
+Plug 'dense-analysis/ale'
 Plug 'udalov/kotlin-vim'
 Plug 'tpope/vim-surround'
+Plug 'codota/tabnine-vim'
+Plug 'beeender/Comrade'
+Plug 'tribela/vim-transparent'
+
 
 call plug#end()
-
+"deoplete
+let g:deoplete#enable_at_startup = 1
 " FZF
-map <C-f> :FzfPreviewProjectFiles<CR>
+map <C-f> :FZF<CR>
 "sets
 set termguicolors
 set cursorline
@@ -36,12 +42,10 @@ let g:floaterm_keymap_toggle = '<C-space>'
 
 "ale
 let g:ale_fix_on_save = 1
-let g:ale_sign_column_always = 1
+let g:ale_sign_error = '>>'
+let g:ale_set_highlights = 1
+let g:airline#extensions#ale#enabled = 1
 let g:ale_completion_enabled = 1
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\}
 
 " Disable arrows
 noremap <Up> <NOP>
