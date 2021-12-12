@@ -1,57 +1,80 @@
 call plug#begin('~/.config/nvim/plugins')
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"Themes
-Plug 'cocopon/iceberg.vim'
-Plug 'Zabanaa/neuromancer.vim'
-Plug 'liuchengxu/space-vim-theme'
-Plug 'nightsense/carbonized'
-Plug 'morhetz/gruvbox'
-Plug 'Rigellute/shades-of-purple.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'voldikss/vim-floaterm'
-Plug 'neoclide/coc.nvim'
-Plug 'dense-analysis/ale'
-Plug 'udalov/kotlin-vim'
-Plug 'tpope/vim-surround'
-Plug 'codota/tabnine-vim'
-Plug 'beeender/Comrade'
-Plug 'tribela/vim-transparent'
+    Plug 'preservim/nerdtree'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
+    Plug 'dense-analysis/ale'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'tmsvg/pear-tree'
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'glepnir/lspsaga.nvim'
+    Plug 'mfussenegger/nvim-jdtls'
+    Plug 'vim-airline/vim-airline'
+    Plug 'voldikss/vim-floaterm'
+    "Themes
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'cocopon/iceberg.vim'
 
+    Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
-"deoplete
-let g:deoplete#enable_at_startup = 1
-" FZF
-map <C-f> :FZF<CR>
-"sets
-set termguicolors
-set cursorline
-set ruler
-set nu rnu
-set background=dark
-"ColourScheme
-colorscheme shades_of_purple
 
-let g:shades_of_purple_airline = 1
-let g:airline_theme='shades_of_purple'
-let g:airline_powerline_fonts = 1
+
+" floaterm
 let g:floaterm_keymap_toggle = '<C-space>'
 
-"ale
+" theme
+colorscheme iceberg
+
+" airline theme
+let g:airline_theme='base16'
+let g:airline_powerline_fonts = 1
+
+
+" I need to sort out lspsaga
+
+"lspconfig
+lua << EOF
+    require'lspconfig'.html.setup{}
+    require'lspconfig'.tsserver.setup{}
+    require'lspconfig'.jdtls.setup{}
+    require'lspconfig'.jsonls.setup{}
+    require'lspconfig'.pyright.setup{}
+EOF
+
+" ALE
+let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
 let g:ale_sign_error = '>>'
 let g:ale_set_highlights = 1
 let g:airline#extensions#ale#enabled = 1
-let g:ale_completion_enabled = 1
 
+" FZF
+map <C-f> :FZF<CR>
+
+" NerdTree
+nnoremap <C-n> :NERDTree<CR>
 " Disable arrows
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+
+" Sets
+set number
+set autoindent
+syntax on
+set cursorline
+set ruler
+set nu rnu
+
+" Set proper tabs
+set tabstop=4
+set shiftwidth=4
+set smarttab
+set expandtab
+
+set laststatus=2
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -105,16 +128,6 @@ endif
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" Set proper tabs
-set tabstop=4
-set shiftwidth=4
-set smarttab
-set expandtab
-
-set laststatus=2
-
-
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+" Devicons
+set encoding=utf8
+set guifont=firacode\ Nerd\ Font\ 12
